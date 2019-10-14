@@ -1,3 +1,50 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `user_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_info`;
+CREATE TABLE `user_info` (
+  `uid` varchar(32) DEFAULT NULL COMMENT '用户名',
+  `userName` varchar(32) DEFAULT NULL COMMENT '用户名',
+  `name` varchar(32) DEFAULT NULL COMMENT '密码',
+  `password` varchar(72) DEFAULT NULL,
+  `salt` varchar(72) DEFAULT NULL,
+  `state` bigint(32) DEFAULT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `sys_permission`;
+CREATE TABLE `sys_permission` (
+  `id` bigint(32) DEFAULT NULL,
+  `available` bigint(32) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `parent_id`  bigint(32) DEFAULT NULL,
+  `parent_ids` varchar(72) DEFAULT NULL,
+  `permission` varchar(72) DEFAULT NULL,
+  `resource_type` varchar(72) DEFAULT NULL,
+  `url` varchar(72) DEFAULT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+drop table  if exists `sys_role`;
+create table `sys_role` (
+ `id` bigint(32) DEFAULT NULL,
+  `available` bigint(32) DEFAULT NULL,
+  `description` varchar(32) DEFAULT NULL,
+  `role`  varchar(32) DEFAULT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+drop table if exists `sys_role_permission`;
+create table `sys_role_permission` (
+  `permission_id` bigint(32) DEFAULT NULL,
+  `role_id` bigint(32) DEFAULT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+drop table if exists `sys_user_role`;
+create table `sys_user_role` (
+ `role_id` bigint(32) DEFAULT NULL,
+  `uid` bigint(32) DEFAULT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
 INSERT INTO `user_info` (`uid`,`username`,`name`,`password`,`salt`,`state`) VALUES ('1', 'admin', '管理员', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', 0);
 INSERT INTO `sys_permission` (`id`,`available`,`name`,`parent_id`,`parent_ids`,`permission`,`resource_type`,`url`) VALUES (1,0,'用户管理',0,'0/','userInfo:view','menu','userInfo/userList');
 INSERT INTO `sys_permission` (`id`,`available`,`name`,`parent_id`,`parent_ids`,`permission`,`resource_type`,`url`) VALUES (2,0,'用户添加',1,'0/1','userInfo:add','button','userInfo/userAdd');
